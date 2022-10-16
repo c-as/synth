@@ -7,7 +7,7 @@ impl Synth for Mix {
         let mut sample = 0.0;
 
         for synth in self.0.iter_mut() {
-            sample += synth.get_input(rate, index)?;
+            sample += synth.get_sample(rate, index)?;
         }
 
         Some(sample)

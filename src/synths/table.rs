@@ -31,7 +31,7 @@ impl Synth for WaveTable {
     fn get_sample(&mut self, rate: u32, index: u32) -> Option<f32> {
         let table_index = (index as f32 / rate as f32
             * self.table.len() as f32
-            * self.freq.get_input(rate, index)?)
+            * self.freq.get_sample(rate, index)?)
             % self.table.len() as f32;
 
         let first = self.table.get(table_index.floor() as usize).unwrap();

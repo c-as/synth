@@ -14,6 +14,6 @@ impl Oscillator {
 
 impl Synth for Oscillator {
     fn get_sample(&mut self, rate: u32, index: u32) -> Option<f32> {
-        Some((index as f32 / rate as f32 * 2.0 * PI * self.0.get_input(rate, index)?).sin())
+        Some((index as f32 / rate as f32 * 2.0 * PI * self.0.get_sample(rate, index)?).sin())
     }
 }

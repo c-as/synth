@@ -10,7 +10,7 @@ impl Input {
         input.into()
     }
 
-    pub fn get_input(&mut self, rate: u32, index: u32) -> Option<f32> {
+    pub fn get_sample(&mut self, rate: u32, index: u32) -> Option<f32> {
         match self {
             Input::Static(value) => Some(value.to_owned()),
             Input::Dynamic(synth) => synth.get_sample(rate, index),
