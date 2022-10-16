@@ -1,8 +1,15 @@
-use std::f32::consts::PI;
+use std::{
+    f32::consts::PI,
+    ops::{Add, Mul},
+};
 
 use interpolation::Lerp;
 
-use crate::{input::Input, Synth};
+use crate::{
+    input::Input,
+    modifiers::{amp::Amp, mix::Mix},
+    Synth,
+};
 
 pub struct WaveTable {
     table: Vec<f32>,
@@ -44,5 +51,21 @@ impl Synth for WaveTable {
             })
             .unwrap();
         Some(first.lerp(second, &(table_index % 1.0)))
+    }
+}
+
+impl<T: Into<Input>> Mul<T> for WaveTable {
+    type Output = Amp;
+
+    fn mul(self, rhs: T) -> Self::Output {
+        Amp::new(self, rhs)
+    }
+}
+
+impl<T: Into<Input>> Add<T> for WaveTable {
+    type Output = Mix;
+
+    fn add(self, rhs: T) -> Self::Output {
+        Mix(vec![self.into(), rhs.into()])
     }
 }

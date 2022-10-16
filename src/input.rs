@@ -1,3 +1,7 @@
+use std::ops::{Add, Mul};
+
+use crate::modifiers::{amp::Amp, mix::Mix};
+
 use super::Synth;
 
 pub struct Input(pub Box<dyn Synth + Send>);
@@ -15,5 +19,21 @@ impl Input {
 impl<U: Synth + Send + 'static> From<U> for Input {
     fn from(value: U) -> Self {
         Self(Box::new(value))
+    }
+}
+
+impl<T: Into<Input>> Mul<T> for Input {
+    type Output = Amp;
+
+    fn mul(self, rhs: T) -> Self::Output {
+        Amp::new(self, rhs)
+    }
+}
+
+impl<T: Into<Input>> Add<T> for Input {
+    type Output = Mix;
+
+    fn add(self, rhs: T) -> Self::Output {
+        Mix(vec![self, rhs.into()])
     }
 }

@@ -1,4 +1,8 @@
+use std::ops::{Add, Mul};
+
 use crate::{input::Input, Synth};
+
+use super::amp::Amp;
 
 pub struct Mix(pub Vec<Input>);
 
@@ -11,5 +15,23 @@ impl Synth for Mix {
         }
 
         Some(sample)
+    }
+}
+
+impl<T: Into<Input>> Mul<T> for Mix {
+    type Output = Amp;
+
+    fn mul(self, rhs: T) -> Self::Output {
+        Amp::new(self, rhs)
+    }
+}
+
+impl<T: Into<Input>> Add<T> for Mix {
+    type Output = Mix;
+
+    fn add(self, rhs: T) -> Self::Output {
+        let mut vec = self.0;
+        vec.push(rhs.into());
+        Mix(vec)
     }
 }
