@@ -1,8 +1,8 @@
 use crate::Synth;
 
-pub struct Closure<F: Fn(u32, u32) -> Option<f32>>(F);
+pub struct Closure<F>(F);
 
-impl<F: Fn(u32, u32) -> Option<f32>> Closure<F> {
+impl<F> Closure<F> {
     pub fn new(f: F) -> Self {
         Self(f)
     }
