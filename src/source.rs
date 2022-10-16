@@ -1,24 +1,24 @@
 use rodio::Source;
 
-use crate::Synth;
+use crate::input::Input;
 
-pub struct SynthSourcer<T> {
+pub struct SynthSourcer {
     rate: u32,
     index: u32,
-    synth: T,
+    input: Input,
 }
 
-impl<T> SynthSourcer<T> {
-    pub fn new(synth: T, rate: u32) -> Self {
+impl SynthSourcer {
+    pub fn new(input: impl Into<Input>, rate: u32) -> Self {
         Self {
             rate,
             index: 0,
-            synth: synth,
+            input: input.into(),
         }
     }
 }
 
-impl<T: Synth> Source for SynthSourcer<T> {
+impl Source for SynthSourcer {
     fn current_frame_len(&self) -> Option<usize> {
         None
     }
@@ -36,12 +36,12 @@ impl<T: Synth> Source for SynthSourcer<T> {
     }
 }
 
-impl<T: Synth> Iterator for SynthSourcer<T> {
+impl Iterator for SynthSourcer {
     type Item = f32;
 
     fn next(&mut self) -> Option<Self::Item> {
         self.index += 1;
 
-        self.synth.get_sample(self.rate, self.index)
+        self.input.get_sample(self.rate, self.index)
     }
 }
