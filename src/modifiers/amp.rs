@@ -1,21 +1,21 @@
 use crate::{input::Input, Synth};
 
-pub struct Amp<T> {
-    input: T,
-    vol: Input,
+pub struct Amp {
+    a: Input,
+    b: Input,
 }
 
-impl<T> Amp<T> {
-    pub fn new(vol: impl Into<Input>, input: T) -> Self {
+impl Amp {
+    pub fn new(a: impl Into<Input>, b: impl Into<Input>) -> Self {
         Self {
-            input,
-            vol: vol.into(),
+            a: a.into(),
+            b: b.into(),
         }
     }
 }
 
-impl<T: Synth> Synth for Amp<T> {
+impl Synth for Amp {
     fn get_sample(&mut self, rate: u32, index: u32) -> Option<f32> {
-        Some(self.vol.get_input(rate, index)? * self.input.get_sample(rate, index)?)
+        Some(self.a.get_input(rate, index)? * self.b.get_input(rate, index)?)
     }
 }
