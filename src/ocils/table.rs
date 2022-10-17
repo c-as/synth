@@ -1,12 +1,10 @@
-use std::{
-    f32::consts::PI,
-    ops::{Add, Mul},
-};
+use std::ops::{Add, Mul};
 
 use interpolation::Lerp;
 
 use crate::{
     input::Input,
+    ocils::{Saw, Sine, Square},
     ops::{Amp, Mix},
     Synth,
 };
@@ -25,9 +23,22 @@ impl Table {
     }
 
     pub fn new_sine(size: u32, freq: impl Into<Input>) -> Self {
+        Self::from_synth(size, Sine::new(1), freq)
+    }
+
+    pub fn new_square(size: u32, freq: impl Into<Input>) -> Self {
+        Self::from_synth(size, Square::new(1), freq)
+    }
+
+    pub fn new_saw(size: u32, freq: impl Into<Input>) -> Self {
+        Self::from_synth(size, Saw::new(1), freq)
+    }
+
+    pub fn from_synth(size: u32, input: impl Into<Input>, freq: impl Into<Input>) -> Self {
+        let mut synth: Input = input.into();
         Self {
             table: (0..size)
-                .map(|i| (i as f32 / size as f32 * 2.0 * PI).sin())
+                .map(|i| synth.get_sample(size, i).unwrap_or_default())
                 .collect(),
             freq: freq.into(),
         }
