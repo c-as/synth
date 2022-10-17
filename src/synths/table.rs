@@ -66,6 +66,6 @@ impl<T: Into<Input>> Add<T> for WaveTable {
     type Output = Mix;
 
     fn add(self, rhs: T) -> Self::Output {
-        Mix(vec![self.into(), rhs.into()])
+        Mix::new(self, rhs)
     }
 }

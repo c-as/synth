@@ -34,6 +34,6 @@ impl<T: Into<Input>> Add<T> for Input {
     type Output = Mix;
 
     fn add(self, rhs: T) -> Self::Output {
-        Mix(vec![self, rhs.into()])
+        Mix::new(self, rhs)
     }
 }

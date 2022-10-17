@@ -4,17 +4,80 @@ use crate::{input::Input, Synth};
 
 use super::amp::Amp;
 
-pub struct Mix(pub Vec<Input>);
+pub struct Mix {
+    a: Input,
+    b: Input,
+}
+
+impl Mix {
+    pub fn new(a: impl Into<Input>, b: impl Into<Input>) -> Self {
+        Self {
+            a: a.into(),
+            b: b.into(),
+        }
+    }
+
+    pub fn from_vec(inputs: Vec<Input>) -> Self {
+        enum Res {
+            None,
+            One(Input),
+            Two(Input, Input),
+            Many(Input, Vec<Input>),
+        }
+
+        let mut res = Res::None;
+        let mut i = 0;
+        for input in inputs {
+            match i {
+                0 => res = Res::One(input),
+                1 => {
+                    res = Res::Two(
+                        match res {
+                            Res::One(a) => a,
+                            _ => unreachable!(),
+                        },
+                        input,
+                    )
+                }
+                2 => {
+                    let mut vec = Vec::<Input>::new();
+                    res = Res::Many(
+                        match res {
+                            Res::Two(a, b) => {
+                                vec.push(b);
+                                vec.push(input);
+                                a
+                            }
+                            _ => unreachable!(),
+                        },
+                        vec,
+                    )
+                }
+                _ => match res {
+                    Res::Many(a, b) => {
+                        let mut b = b;
+                        b.push(input);
+                        res = Res::Many(a, b);
+                    }
+                    _ => unreachable!(),
+                },
+            }
+
+            i += 1;
+        }
+
+        match res {
+            Res::None => Mix::new(0.0, 0.0),
+            Res::One(a) => Mix::new(a, 0.0),
+            Res::Two(a, b) => Mix::new(a, b),
+            Res::Many(a, b) => Mix::new(a, Mix::from_vec(b)),
+        }
+    }
+}
 
 impl Synth for Mix {
     fn get_sample(&mut self, rate: u32, index: u32) -> Option<f32> {
-        let mut sample = 0.0;
-
-        for synth in self.0.iter_mut() {
-            sample += synth.get_sample(rate, index)?;
-        }
-
-        Some(sample)
+        Some(self.a.get_sample(rate, index)? + self.b.get_sample(rate, index)?)
     }
 }
 
@@ -30,8 +93,6 @@ impl<T: Into<Input>> Add<T> for Mix {
     type Output = Mix;
 
     fn add(self, rhs: T) -> Self::Output {
-        let mut vec = self.0;
-        vec.push(rhs.into());
-        Mix(vec)
+        Mix::new(self, rhs)
     }
 }

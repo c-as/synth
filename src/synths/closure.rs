@@ -32,6 +32,6 @@ impl<F: Fn(u32, u32) -> Option<f32> + Send + 'static, T: Into<Input>> Add<T> for
     type Output = Mix;
 
     fn add(self, rhs: T) -> Self::Output {
-        Mix(vec![self.into(), rhs.into()])
+        Mix::new(self, rhs)
     }
 }
