@@ -2,7 +2,7 @@ use std::ops::{Add, Mul};
 
 use crate::{
     input::Input,
-    modifiers::{amp::Amp, mix::Mix},
+    ops::{amp::Amp, mix::Mix},
     Synth,
 };
 

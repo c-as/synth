@@ -1,6 +1,6 @@
 use std::ops::{Add, Mul};
 
-use crate::modifiers::{amp::Amp, mix::Mix};
+use crate::ops::{amp::Amp, mix::Mix};
 
 use super::Synth;
 

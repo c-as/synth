@@ -5,7 +5,7 @@ use std::{
 
 use crate::{
     input::Input,
-    modifiers::{amp::Amp, mix::Mix},
+    ops::{amp::Amp, mix::Mix},
 };
 
 use crate::Synth;
