@@ -1,8 +1,9 @@
 use std::ops::{Add, Mul};
 
-use crate::ops::{amp::Amp, mix::Mix};
-
-use super::Synth;
+use crate::{
+    ops::{Amp, Mix},
+    Synth,
+};
 
 pub struct Input(pub Box<dyn Synth + Send>);
 

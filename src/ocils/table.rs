@@ -7,7 +7,7 @@ use interpolation::Lerp;
 
 use crate::{
     input::Input,
-    ops::{amp::Amp, mix::Mix},
+    ops::{Amp, Mix},
     Synth,
 };
 

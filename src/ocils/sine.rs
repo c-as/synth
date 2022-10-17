@@ -5,10 +5,9 @@ use std::{
 
 use crate::{
     input::Input,
-    ops::{amp::Amp, mix::Mix},
+    ops::{Amp, Mix},
+    Synth,
 };
-
-use crate::Synth;
 
 pub struct Sine(Input);
 
