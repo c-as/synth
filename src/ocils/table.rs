@@ -11,12 +11,12 @@ use crate::{
     Synth,
 };
 
-pub struct WaveTable {
+pub struct Table {
     table: Vec<f32>,
     freq: Input,
 }
 
-impl WaveTable {
+impl Table {
     pub fn new(table: Vec<f32>, freq: impl Into<Input>) -> Self {
         Self {
             table,
@@ -34,7 +34,7 @@ impl WaveTable {
     }
 }
 
-impl Synth for WaveTable {
+impl Synth for Table {
     fn get_sample(&mut self, rate: u32, index: u32) -> Option<f32> {
         let table_index = (index as f32 / rate as f32
             * self.table.len() as f32
@@ -54,7 +54,7 @@ impl Synth for WaveTable {
     }
 }
 
-impl<T: Into<Input>> Mul<T> for WaveTable {
+impl<T: Into<Input>> Mul<T> for Table {
     type Output = Amp;
 
     fn mul(self, rhs: T) -> Self::Output {
@@ -62,7 +62,7 @@ impl<T: Into<Input>> Mul<T> for WaveTable {
     }
 }
 
-impl<T: Into<Input>> Add<T> for WaveTable {
+impl<T: Into<Input>> Add<T> for Table {
     type Output = Mix;
 
     fn add(self, rhs: T) -> Self::Output {
