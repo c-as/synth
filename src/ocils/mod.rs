@@ -1,3 +1,3 @@
 pub mod closure;
-pub mod oscillator;
+pub mod sine;
 pub mod table;

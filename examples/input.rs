@@ -1,5 +1,5 @@
-use synth::{ocils::oscillator::Oscillator, player::Player};
+use synth::{ocils::sine::Sine, player::Player};
 
 fn main() {
-    Player::play(Oscillator::new(Oscillator::new(1.0) * 100) * 0.05);
+    Player::play(Sine::new(Sine::new(1.0) * 100) * 0.05);
 }
