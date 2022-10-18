@@ -1,14 +1,10 @@
 [package]
-name = "synth"
+name = "synth_structs"
 version = "0.1.0"
 edition = "2021"
 authors = ["Cas Brugman <casbrugman@hotmail.nl>"]
 
-[workspace]
-members = ["crates/*"]
-
 [dependencies]
-synth_structs = { path = "crates/synth_structs"}
-
-[dev-dependencies]
+interpolation = "0.2.0"
 rand = "0.8.5"
+rodio = "0.16.0"
