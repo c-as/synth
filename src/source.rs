@@ -42,6 +42,7 @@ impl Iterator for SynthSourcer {
     fn next(&mut self) -> Option<Self::Item> {
         self.index += 1;
 
-        self.input.get_sample(self.rate, self.index)
+        //For development purposes None values are not allowed
+        Some(self.input.get_sample(self.rate).unwrap())
     }
 }
