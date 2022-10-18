@@ -41,7 +41,7 @@ impl Table {
 
         Self::new(
             (0..size)
-                .map(|i| synth.get_sample(size, i).unwrap_or_default())
+                .map(|_| synth.get_sample(size).unwrap_or_default())
                 .collect(),
             freq,
         )
@@ -49,9 +49,9 @@ impl Table {
 }
 
 impl Synth for Table {
-    fn get_sample(&mut self, rate: u32, index: u32) -> Option<f32> {
+    fn get_sample(&mut self, rate: u32) -> Option<f32> {
         let len = 1.0 / rate as f32;
-        self.index += len * self.table.len() as f32 * self.freq.get_sample(rate, index)?;
+        self.index += len * self.table.len() as f32 * self.freq.get_sample(rate)?;
         self.index %= self.table.len() as f32;
 
         let first = self.table.get(self.index.floor() as usize).unwrap();

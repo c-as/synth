@@ -74,8 +74,8 @@ impl Mix {
 }
 
 impl Synth for Mix {
-    fn get_sample(&mut self, rate: u32, index: u32) -> Option<f32> {
-        Some(self.a.get_sample(rate, index)? + self.b.get_sample(rate, index)?)
+    fn get_sample(&mut self, rate: u32) -> Option<f32> {
+        Some(self.a.get_sample(rate)? + self.b.get_sample(rate)?)
     }
 }
 

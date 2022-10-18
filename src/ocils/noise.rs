@@ -15,7 +15,7 @@ impl Noise {
 }
 
 impl Synth for Noise {
-    fn get_sample(&mut self, _: u32, _: u32) -> Option<f32> {
+    fn get_sample(&mut self, _: u32) -> Option<f32> {
         Some(rand::random())
     }
 }

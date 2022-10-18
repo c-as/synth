@@ -14,13 +14,13 @@ impl<F> Closure<F> {
     }
 }
 
-impl<F: Fn(u32, u32) -> Option<f32>> Synth for Closure<F> {
-    fn get_sample(&mut self, rate: u32, index: u32) -> Option<f32> {
-        self.0(rate, index)
+impl<F: Fn(u32) -> Option<f32>> Synth for Closure<F> {
+    fn get_sample(&mut self, rate: u32) -> Option<f32> {
+        self.0(rate)
     }
 }
 
-impl<F: Fn(u32, u32) -> Option<f32> + Send + 'static, T: Into<Input>> Mul<T> for Closure<F> {
+impl<F: Fn(u32) -> Option<f32> + Send + 'static, T: Into<Input>> Mul<T> for Closure<F> {
     type Output = Amp;
 
     fn mul(self, rhs: T) -> Self::Output {
@@ -28,7 +28,7 @@ impl<F: Fn(u32, u32) -> Option<f32> + Send + 'static, T: Into<Input>> Mul<T> for
     }
 }
 
-impl<F: Fn(u32, u32) -> Option<f32> + Send + 'static, T: Into<Input>> Add<T> for Closure<F> {
+impl<F: Fn(u32) -> Option<f32> + Send + 'static, T: Into<Input>> Add<T> for Closure<F> {
     type Output = Mix;
 
     fn add(self, rhs: T) -> Self::Output {
