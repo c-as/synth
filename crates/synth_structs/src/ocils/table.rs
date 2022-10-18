@@ -8,6 +8,7 @@ use crate::{
     Input, Synth,
 };
 
+#[derive(Clone)]
 pub struct Table {
     table: Vec<f32>,
     freq: Input,

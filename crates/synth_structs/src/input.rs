@@ -5,6 +5,7 @@ use crate::{
     Synth,
 };
 
+#[derive(Clone)]
 pub struct Input(pub Box<dyn Synth + Send>);
 
 impl Input {

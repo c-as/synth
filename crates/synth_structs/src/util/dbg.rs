@@ -2,6 +2,7 @@ use std::ops;
 
 use crate::{ops::Add, Input, Synth};
 
+#[derive(Clone)]
 pub struct Dbg {
     input: Input,
     interval: Input,

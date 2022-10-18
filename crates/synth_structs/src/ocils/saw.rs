@@ -5,6 +5,7 @@ use crate::{
     Input, Synth,
 };
 
+#[derive(Clone)]
 pub struct Saw {
     freq: Input,
     index: f32,

@@ -5,6 +5,7 @@ edition = "2021"
 authors = ["Cas Brugman <casbrugman@hotmail.nl>"]
 
 [dependencies]
+dyn-clone = "1.0.9"
 interpolation = "0.2.0"
 rand = "0.8.5"
 rodio = "0.16.0"

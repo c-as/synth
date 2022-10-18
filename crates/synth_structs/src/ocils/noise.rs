@@ -5,6 +5,7 @@ use crate::{
     Input, Synth,
 };
 
+#[derive(Clone)]
 enum Type {
     Simple,
     Freq {
@@ -14,6 +15,7 @@ enum Type {
     },
 }
 
+#[derive(Clone)]
 pub struct Noise(Type);
 
 impl Noise {

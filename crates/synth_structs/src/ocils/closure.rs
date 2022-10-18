@@ -5,6 +5,7 @@ use crate::{
     Input, Synth,
 };
 
+#[derive(Clone)]
 pub struct Closure<F>(F);
 
 impl<F> Closure<F> {
@@ -13,13 +14,15 @@ impl<F> Closure<F> {
     }
 }
 
-impl<F: FnMut(u32) -> Option<f32>> Synth for Closure<F> {
+impl<F: FnMut(u32) -> Option<f32> + Clone> Synth for Closure<F> {
     fn get_sample(&mut self, rate: u32) -> Option<f32> {
         self.0(rate)
     }
 }
 
-impl<F: FnMut(u32) -> Option<f32> + Send + 'static, T: Into<Input>> ops::Mul<T> for Closure<F> {
+impl<F: FnMut(u32) -> Option<f32> + Send + Clone + 'static, T: Into<Input>> ops::Mul<T>
+    for Closure<F>
+{
     type Output = Amp;
 
     fn mul(self, rhs: T) -> Self::Output {
@@ -27,7 +30,9 @@ impl<F: FnMut(u32) -> Option<f32> + Send + 'static, T: Into<Input>> ops::Mul<T> 
     }
 }
 
-impl<F: FnMut(u32) -> Option<f32> + Send + 'static, T: Into<Input>> ops::Add<T> for Closure<F> {
+impl<F: FnMut(u32) -> Option<f32> + Send + Clone + 'static, T: Into<Input>> ops::Add<T>
+    for Closure<F>
+{
     type Output = Add;
 
     fn add(self, rhs: T) -> Self::Output {

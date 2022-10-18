@@ -2,6 +2,7 @@ use std::ops;
 
 use crate::{ops::Amp, Input, Synth};
 
+#[derive(Clone)]
 pub struct Add {
     a: Input,
     b: Input,
