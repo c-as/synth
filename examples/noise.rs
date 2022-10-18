@@ -1,5 +1,5 @@
-use synth::{ocils::Noise, player::Player};
+use synth::{input::Input, ocils::Noise, player::Player};
 
 fn main() {
-    Player::play(Noise::new() * 0.05);
+    Player::play(Noise::new(Some(Input::from(1000))) * 0.05);
 }
