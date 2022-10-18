@@ -6,19 +6,26 @@ use crate::{
     Synth,
 };
 
-pub struct Square(Input);
+pub struct Square {
+    freq: Input,
+    index: f32,
+}
 
 impl Square {
     pub fn new(freq: impl Into<Input>) -> Self {
-        Self(freq.into())
+        Self {
+            freq: freq.into(),
+            index: 0.0,
+        }
     }
 }
 
 impl Synth for Square {
     fn get_sample(&mut self, rate: u32, index: u32) -> Option<f32> {
-        let secs = index as f32 / rate as f32;
-        let wavs = secs * self.0.get_sample(rate, index)?;
-        let ampl = (wavs % 1.0).round();
+        let len = 1.0 / rate as f32;
+        self.index += len * self.freq.get_sample(rate, index)?;
+        self.index %= 1.0;
+        let ampl = self.index.round();
         Some(ampl)
     }
 }

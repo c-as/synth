@@ -12,6 +12,7 @@ use crate::{
 pub struct Table {
     table: Vec<f32>,
     freq: Input,
+    index: f32,
 }
 
 impl Table {
@@ -19,6 +20,7 @@ impl Table {
         Self {
             table,
             freq: freq.into(),
+            index: 0.0,
         }
     }
 
@@ -36,32 +38,32 @@ impl Table {
 
     pub fn from_synth(size: u32, input: impl Into<Input>, freq: impl Into<Input>) -> Self {
         let mut synth: Input = input.into();
-        Self {
-            table: (0..size)
+
+        Self::new(
+            (0..size)
                 .map(|i| synth.get_sample(size, i).unwrap_or_default())
                 .collect(),
-            freq: freq.into(),
-        }
+            freq,
+        )
     }
 }
 
 impl Synth for Table {
     fn get_sample(&mut self, rate: u32, index: u32) -> Option<f32> {
-        let table_index = (index as f32 / rate as f32
-            * self.table.len() as f32
-            * self.freq.get_sample(rate, index)?)
-            % self.table.len() as f32;
+        let len = 1.0 / rate as f32;
+        self.index += len * self.table.len() as f32 * self.freq.get_sample(rate, index)?;
+        self.index %= self.table.len() as f32;
 
-        let first = self.table.get(table_index.floor() as usize).unwrap();
+        let first = self.table.get(self.index.floor() as usize).unwrap();
         let second = self
             .table
-            .get(if table_index.round() as usize == self.table.len() {
+            .get(if self.index.round() as usize == self.table.len() {
                 0
             } else {
-                table_index.round() as usize
+                self.index.round() as usize
             })
             .unwrap();
-        Some(first.lerp(second, &(table_index % 1.0)))
+        Some(first.lerp(second, &(self.index % 1.0)))
     }
 }
 
