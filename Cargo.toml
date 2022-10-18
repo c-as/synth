@@ -7,8 +7,11 @@ authors = ["Cas Brugman <casbrugman@hotmail.nl>"]
 [workspace]
 members = ["crates/*"]
 
+[workspace.dependencies]
+synth_structs = {path = "crates/synth_structs"}
+
 [dependencies]
-synth_structs = { path = "crates/synth_structs"}
+synth_structs = { workspace = true}
 
 [dev-dependencies]
 rand = "0.8.5"
