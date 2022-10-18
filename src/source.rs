@@ -4,7 +4,6 @@ use crate::Input;
 
 pub struct SynthSourcer {
     rate: u32,
-    index: u32,
     input: Input,
 }
 
@@ -12,7 +11,6 @@ impl SynthSourcer {
     pub fn new(input: impl Into<Input>, rate: u32) -> Self {
         Self {
             rate,
-            index: 0,
             input: input.into(),
         }
     }
@@ -40,8 +38,6 @@ impl Iterator for SynthSourcer {
     type Item = f32;
 
     fn next(&mut self) -> Option<Self::Item> {
-        self.index += 1;
-
         //For development purposes None values are not allowed
         Some(self.input.get_sample(self.rate).unwrap())
     }
