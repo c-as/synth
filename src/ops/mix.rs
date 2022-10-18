@@ -24,8 +24,7 @@ impl Mix {
         }
 
         let mut res = Res::None;
-        let mut i = 0;
-        for input in inputs {
+        for (i, input) in inputs.into_iter().enumerate() {
             match i {
                 0 => res = Res::One(input),
                 1 => {
@@ -60,8 +59,6 @@ impl Mix {
                     _ => unreachable!(),
                 },
             }
-
-            i += 1;
         }
 
         match res {
