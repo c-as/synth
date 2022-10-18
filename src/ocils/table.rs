@@ -1,10 +1,10 @@
-use std::ops::{Add, Mul};
+use std::ops;
 
 use interpolation::Lerp;
 
 use crate::{
     ocils::{Saw, Sine, Square},
-    ops::{Amp, Mix},
+    ops::{Add, Amp},
     Input, Synth,
 };
 
@@ -66,7 +66,7 @@ impl Synth for Table {
     }
 }
 
-impl<T: Into<Input>> Mul<T> for Table {
+impl<T: Into<Input>> ops::Mul<T> for Table {
     type Output = Amp;
 
     fn mul(self, rhs: T) -> Self::Output {
@@ -74,10 +74,10 @@ impl<T: Into<Input>> Mul<T> for Table {
     }
 }
 
-impl<T: Into<Input>> Add<T> for Table {
-    type Output = Mix;
+impl<T: Into<Input>> ops::Add<T> for Table {
+    type Output = Add;
 
     fn add(self, rhs: T) -> Self::Output {
-        Mix::new(self, rhs)
+        Add::new(self, rhs)
     }
 }

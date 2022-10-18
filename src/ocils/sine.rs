@@ -1,10 +1,7 @@
-use std::{
-    f32::consts::PI,
-    ops::{Add, Mul},
-};
+use std::{f32::consts::PI, ops};
 
 use crate::{
-    ops::{Amp, Mix},
+    ops::{Add, Amp},
     Input, Synth,
 };
 
@@ -33,7 +30,7 @@ impl Synth for Sine {
     }
 }
 
-impl<T: Into<Input>> Mul<T> for Sine {
+impl<T: Into<Input>> ops::Mul<T> for Sine {
     type Output = Amp;
 
     fn mul(self, rhs: T) -> Self::Output {
@@ -41,10 +38,10 @@ impl<T: Into<Input>> Mul<T> for Sine {
     }
 }
 
-impl<T: Into<Input>> Add<T> for Sine {
-    type Output = Mix;
+impl<T: Into<Input>> ops::Add<T> for Sine {
+    type Output = Add;
 
     fn add(self, rhs: T) -> Self::Output {
-        Mix::new(self, rhs)
+        Add::new(self, rhs)
     }
 }

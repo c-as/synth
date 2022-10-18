@@ -1,7 +1,7 @@
-use std::ops::{Add, Mul};
+use std::ops;
 
 use crate::{
-    ops::{Amp, Mix},
+    ops::{Add, Amp},
     Input, Synth,
 };
 
@@ -19,7 +19,7 @@ impl<F: FnMut(u32) -> Option<f32>> Synth for Closure<F> {
     }
 }
 
-impl<F: FnMut(u32) -> Option<f32> + Send + 'static, T: Into<Input>> Mul<T> for Closure<F> {
+impl<F: FnMut(u32) -> Option<f32> + Send + 'static, T: Into<Input>> ops::Mul<T> for Closure<F> {
     type Output = Amp;
 
     fn mul(self, rhs: T) -> Self::Output {
@@ -27,10 +27,10 @@ impl<F: FnMut(u32) -> Option<f32> + Send + 'static, T: Into<Input>> Mul<T> for C
     }
 }
 
-impl<F: FnMut(u32) -> Option<f32> + Send + 'static, T: Into<Input>> Add<T> for Closure<F> {
-    type Output = Mix;
+impl<F: FnMut(u32) -> Option<f32> + Send + 'static, T: Into<Input>> ops::Add<T> for Closure<F> {
+    type Output = Add;
 
     fn add(self, rhs: T) -> Self::Output {
-        Mix::new(self, rhs)
+        Add::new(self, rhs)
     }
 }

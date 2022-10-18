@@ -1,13 +1,13 @@
-use std::ops::{Add, Mul};
+use std::ops;
 
 use crate::{ops::Amp, Input, Synth};
 
-pub struct Mix {
+pub struct Add {
     a: Input,
     b: Input,
 }
 
-impl Mix {
+impl Add {
     pub fn new(a: impl Into<Input>, b: impl Into<Input>) -> Self {
         Self {
             a: a.into(),
@@ -62,21 +62,21 @@ impl Mix {
         }
 
         match res {
-            Res::None => Mix::new(0.0, 0.0),
-            Res::One(a) => Mix::new(a, 0.0),
-            Res::Two(a, b) => Mix::new(a, b),
-            Res::Many(a, b) => Mix::new(a, Mix::from_vec(b)),
+            Res::None => Add::new(0.0, 0.0),
+            Res::One(a) => Add::new(a, 0.0),
+            Res::Two(a, b) => Add::new(a, b),
+            Res::Many(a, b) => Add::new(a, Add::from_vec(b)),
         }
     }
 }
 
-impl Synth for Mix {
+impl Synth for Add {
     fn get_sample(&mut self, rate: u32) -> Option<f32> {
         Some(self.a.get_sample(rate)? + self.b.get_sample(rate)?)
     }
 }
 
-impl<T: Into<Input>> Mul<T> for Mix {
+impl<T: Into<Input>> ops::Mul<T> for Add {
     type Output = Amp;
 
     fn mul(self, rhs: T) -> Self::Output {
@@ -84,10 +84,10 @@ impl<T: Into<Input>> Mul<T> for Mix {
     }
 }
 
-impl<T: Into<Input>> Add<T> for Mix {
-    type Output = Mix;
+impl<T: Into<Input>> ops::Add<T> for Add {
+    type Output = Add;
 
     fn add(self, rhs: T) -> Self::Output {
-        Mix::new(self, rhs)
+        Add::new(self, rhs)
     }
 }

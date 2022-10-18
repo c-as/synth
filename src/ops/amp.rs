@@ -1,6 +1,6 @@
-use std::ops::{Add, Mul};
+use std::ops;
 
-use crate::{ops::Mix, Input, Synth};
+use crate::{ops::Add, Input, Synth};
 
 pub struct Amp {
     a: Input,
@@ -22,7 +22,7 @@ impl Synth for Amp {
     }
 }
 
-impl<T: Into<Input>> Mul<T> for Amp {
+impl<T: Into<Input>> ops::Mul<T> for Amp {
     type Output = Amp;
 
     fn mul(self, rhs: T) -> Self::Output {
@@ -30,10 +30,10 @@ impl<T: Into<Input>> Mul<T> for Amp {
     }
 }
 
-impl<T: Into<Input>> Add<T> for Amp {
-    type Output = Mix;
+impl<T: Into<Input>> ops::Add<T> for Amp {
+    type Output = Add;
 
     fn add(self, rhs: T) -> Self::Output {
-        Mix::new(self, rhs)
+        Add::new(self, rhs)
     }
 }

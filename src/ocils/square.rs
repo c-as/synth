@@ -1,7 +1,7 @@
-use std::ops::{Add, Mul};
+use std::ops;
 
 use crate::{
-    ops::{Amp, Mix},
+    ops::{Add, Amp},
     Input, Synth,
 };
 
@@ -29,7 +29,7 @@ impl Synth for Square {
     }
 }
 
-impl<T: Into<Input>> Mul<T> for Square {
+impl<T: Into<Input>> ops::Mul<T> for Square {
     type Output = Amp;
 
     fn mul(self, rhs: T) -> Self::Output {
@@ -37,10 +37,10 @@ impl<T: Into<Input>> Mul<T> for Square {
     }
 }
 
-impl<T: Into<Input>> Add<T> for Square {
-    type Output = Mix;
+impl<T: Into<Input>> ops::Add<T> for Square {
+    type Output = Add;
 
     fn add(self, rhs: T) -> Self::Output {
-        Mix::new(self, rhs)
+        Add::new(self, rhs)
     }
 }
