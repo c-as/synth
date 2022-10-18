@@ -1,9 +1,8 @@
 use std::ops::{Add, Mul};
 
 use crate::{
-    input::Input,
     ops::{Amp, Mix},
-    Synth,
+    Input, Synth,
 };
 
 pub struct Saw {

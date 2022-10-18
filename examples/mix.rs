@@ -1,5 +1,5 @@
 use rand::{thread_rng, Rng};
-use synth::{input::Input, ocils::Table, ops::Mix, player::Player};
+use synth::{ocils::Table, ops::Mix, Input, Player};
 
 fn main() {
     let mut rng = thread_rng();

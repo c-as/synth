@@ -4,6 +4,9 @@ pub mod ops;
 pub mod player;
 mod source;
 
+pub use input::Input;
+pub use player::Player;
+
 pub trait Synth {
     fn get_sample(&mut self, rate: u32) -> Option<f32>;
 }

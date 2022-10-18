@@ -1,5 +1,5 @@
 use rand::{thread_rng, Rng};
-use synth::{ocils::Table, player::Player};
+use synth::{ocils::Table, Player};
 
 fn main() {
     let mut rng = thread_rng();

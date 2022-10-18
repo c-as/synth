@@ -1,4 +1,4 @@
-use synth::{ocils::Square, player::Player};
+use synth::{ocils::Square, Player};
 
 fn main() {
     Player::play(Square::new(100) * 0.1);

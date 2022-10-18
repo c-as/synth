@@ -1,6 +1,6 @@
 use std::ops::{Add, Mul};
 
-use crate::{input::Input, ops::Amp, Synth};
+use crate::{ops::Amp, Input, Synth};
 
 pub struct Mix {
     a: Input,

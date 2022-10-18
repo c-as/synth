@@ -2,7 +2,7 @@ use std::{thread::sleep, time::Duration};
 
 use rodio::{OutputStream, Source};
 
-use crate::{input::Input, source::SynthSourcer};
+use crate::{source::SynthSourcer, Input};
 
 pub struct Player;
 

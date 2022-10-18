@@ -1,6 +1,6 @@
 use std::f32::consts::PI;
 
-use synth::{ocils::Closure, player::Player};
+use synth::{ocils::Closure, Player};
 fn main() {
     const FREQ: f32 = 200.0;
     const VOL: f32 = 0.5;

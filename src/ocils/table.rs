@@ -3,10 +3,9 @@ use std::ops::{Add, Mul};
 use interpolation::Lerp;
 
 use crate::{
-    input::Input,
     ocils::{Saw, Sine, Square},
     ops::{Amp, Mix},
-    Synth,
+    Input, Synth,
 };
 
 pub struct Table {

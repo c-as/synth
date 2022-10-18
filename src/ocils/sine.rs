@@ -4,9 +4,8 @@ use std::{
 };
 
 use crate::{
-    input::Input,
     ops::{Amp, Mix},
-    Synth,
+    Input, Synth,
 };
 
 pub struct Sine {

@@ -1,6 +1,6 @@
 use rodio::Source;
 
-use crate::input::Input;
+use crate::Input;
 
 pub struct SynthSourcer {
     rate: u32,
