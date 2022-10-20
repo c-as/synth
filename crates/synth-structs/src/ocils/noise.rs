@@ -19,16 +19,16 @@ enum Type {
 pub struct Noise(Type);
 
 impl Noise {
-    pub fn new(freq: Option<Input>) -> Self {
-        if let Some(freq) = freq {
-            Self(Type::Freq {
-                freq: freq,
-                index: 0.0,
-                last_sample: None,
-            })
-        } else {
-            Self(Type::Simple)
-        }
+    pub fn new() -> Self {
+        Self(Type::Simple)
+    }
+
+    pub fn new_freq(freq: impl Into<Input>) -> Self {
+        Self(Type::Freq {
+            freq: freq.into(),
+            index: 0.0,
+            last_sample: None,
+        })
     }
 }
 
