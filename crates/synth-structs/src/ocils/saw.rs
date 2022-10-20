@@ -22,10 +22,12 @@ impl Saw {
 
 impl Synth for Saw {
     fn get_sample(&mut self, rate: u32) -> Option<f32> {
+        let ampl = 1.0 - (self.index * 2.0);
+
         let len = 1.0 / rate as f32;
         self.index += len * self.freq.get_sample(rate)?;
         self.index %= 1.0;
-        let ampl = 1.0 - (self.index * 2.0);
+
         Some(ampl)
     }
 }

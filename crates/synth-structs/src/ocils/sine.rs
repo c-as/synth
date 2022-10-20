@@ -22,11 +22,13 @@ impl Sine {
 
 impl Synth for Sine {
     fn get_sample(&mut self, rate: u32) -> Option<f32> {
+        let angle = self.index * 2.0 * PI;
+        let ampl = angle.sin();
+
         let len = 1.0 / rate as f32;
         self.index += len * self.freq.get_sample(rate)?;
         self.index %= 1.0;
-        let angle = self.index * 2.0 * PI;
-        let ampl = angle.sin();
+
         Some(ampl)
     }
 }

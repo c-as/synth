@@ -50,10 +50,6 @@ impl Table {
 
 impl Synth for Table {
     fn get_sample(&mut self, rate: u32) -> Option<f32> {
-        let len = 1.0 / rate as f32;
-        self.index += len * self.table.len() as f32 * self.freq.get_sample(rate)?;
-        self.index %= self.table.len() as f32;
-
         let first = self.table.get(self.index.floor() as usize).unwrap();
         let second = self
             .table
@@ -63,6 +59,11 @@ impl Synth for Table {
                 self.index.round() as usize
             })
             .unwrap();
+
+        let len = 1.0 / rate as f32;
+        self.index += len * self.table.len() as f32 * self.freq.get_sample(rate)?;
+        self.index %= self.table.len() as f32;
+
         Some(first.lerp(second, &(self.index % 1.0)))
     }
 }
