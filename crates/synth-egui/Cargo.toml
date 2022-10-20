@@ -1,0 +1,10 @@
+[package]
+name = "synth-egui"
+version = "0.1.0"
+edition = "2021"
+authors = ["Cas Brugman <casbrugman@hotmail.nl>"]
+
+[dependencies]
+eframe = "0.19.0"
+egui = "0.19.0"
+synth-structs = {workspace = true}
