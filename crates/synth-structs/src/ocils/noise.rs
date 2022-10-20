@@ -30,12 +30,16 @@ impl Noise {
             last_sample: None,
         })
     }
+
+    fn get_random() -> f32 {
+        rand::random::<f32>() * 2.0 - 1.0
+    }
 }
 
 impl Synth for Noise {
     fn get_sample(&mut self, rate: u32) -> Option<f32> {
         match &mut self.0 {
-            Type::Simple => Some(rand::random()),
+            Type::Simple => Some(Self::get_random()),
             Type::Freq {
                 freq,
                 index,
@@ -45,11 +49,11 @@ impl Synth for Noise {
                 *index += len * freq.get_sample(rate)?;
                 if *index >= 1.0 {
                     *index %= 1.0;
-                    *last_sample = Some(rand::random());
+                    *last_sample = Some(Self::get_random());
                 }
 
                 if last_sample.is_none() {
-                    *last_sample = Some(rand::random());
+                    *last_sample = Some(Self::get_random());
                 }
 
                 *last_sample
