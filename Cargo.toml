@@ -9,11 +9,11 @@ members = ["crates/*"]
 
 [workspace.dependencies]
 synth-structs = {path = "crates/synth-structs"}
-synth-egui = {path = "crates/synth-egui"}
+synth-ui = {path = "crates/synth-ui"}
 
 [dependencies]
 synth-structs = { workspace = true}
-synth-egui = { workspace = true}
+synth-ui = { workspace = true}
 
 [dev-dependencies]
 rand = "0.8.5"
