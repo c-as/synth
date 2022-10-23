@@ -20,7 +20,7 @@ impl Graph {
     pub fn new(input: impl Into<Input> + 'static) -> Self {
         let mut instance = Self {
             input: input.into(),
-            samples: 1000,
+            samples: 5000,
             millis: 1000.0,
             buffer: None,
             player: None,
