@@ -20,7 +20,7 @@ pub struct Noise(Type);
 
 impl Noise {
     pub fn new() -> Self {
-        Self(Type::Simple)
+        Default::default()
     }
 
     pub fn new_freq(freq: impl Into<Input>) -> Self {
@@ -33,6 +33,12 @@ impl Noise {
 
     fn get_random() -> f32 {
         rand::random::<f32>() * 2.0 - 1.0
+    }
+}
+
+impl Default for Noise {
+    fn default() -> Self {
+        Self(Type::Simple)
     }
 }
 

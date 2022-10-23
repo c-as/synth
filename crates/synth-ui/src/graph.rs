@@ -109,7 +109,7 @@ impl Graph {
             last = Some(point)
         }
 
-        if intersects.len() == 0 {
+        if intersects.is_empty() {
             if let Some(intersect) = self.known_intersect {
                 intersects.push(intersect);
             }
@@ -120,7 +120,7 @@ impl Graph {
 
     fn view_waves(&mut self, amount: u32) {
         self.waves = amount;
-        if let Some(index) = self.est_intersects().get(0) {
+        if let Some(index) = self.est_intersects().first() {
             self.millis = self.millis * *index as f64 * amount as f64 / self.samples as f64;
             self.update_buffer();
         }
@@ -205,7 +205,7 @@ impl Ui for Graph {
                         .add(egui::Checkbox::new(&mut self.player.is_some(), "play"))
                         .changed()
                     {
-                        self.set_playing(!self.player.is_some())
+                        self.set_playing(self.player.is_none())
                     }
                     ui.end_row();
                 });
