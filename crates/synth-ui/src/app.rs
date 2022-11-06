@@ -22,6 +22,8 @@ impl<T: Ui> eframe::App for App<T> {
     fn update(&mut self, ctx: &egui::Context, _: &mut eframe::Frame) {
         egui::TopBottomPanel::top("").show(ctx, |ui| {
             egui::menu::bar(ui, |ui| {
+                ui.label("Synth");
+                ui.separator();
                 ui.label(self.0.title());
             })
         });
