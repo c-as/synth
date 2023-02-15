@@ -14,7 +14,7 @@ impl<T: Ui + 'static> App<T> {
             self.0.title().to_owned().as_str(),
             NativeOptions::default(),
             Box::new(|_| Box::new(self)),
-        );
+        ).ok();
     }
 }
 
