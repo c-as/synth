@@ -2,7 +2,7 @@ use egui::{
     plot::{Legend, Line, Plot},
     Color32,
 };
-use synth_structs::{Input, Player};
+use synth_structs::{Context, Input, Player};
 
 use crate::{App, Ui};
 
@@ -58,7 +58,11 @@ impl Graph {
             .map(|i| {
                 [
                     self.millis / self.samples as f64 * i as f64,
-                    input.get_sample(self.get_rate()).unwrap_or(0.0) as f64,
+                    input
+                        .get_sample(Context {
+                            rate: self.get_rate(),
+                        })
+                        .unwrap_or(0.0) as f64,
                 ]
             })
             .collect()

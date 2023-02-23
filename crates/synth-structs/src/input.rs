@@ -2,7 +2,7 @@ use std::ops;
 
 use crate::{
     ops::{Add, Amp},
-    Synth,
+    Context, Synth,
 };
 
 #[derive(Clone)]
@@ -13,8 +13,8 @@ impl Input {
         input.into()
     }
 
-    pub fn get_sample(&mut self, rate: u32) -> Option<f32> {
-        self.0.sample(rate)
+    pub fn get_sample(&mut self, context: Context) -> Option<f32> {
+        self.0.sample(context)
     }
 }
 

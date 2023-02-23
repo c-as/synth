@@ -6,8 +6,8 @@ fn main() {
     const VOL: f32 = 0.5;
 
     let mut index = 0.0;
-    Player::play(Closure::new(move |rate| {
-        let len = 1.0 / rate as f32;
+    Player::play(Closure::new(move |context| {
+        let len = 1.0 / context.rate as f32;
         index += len * FREQ;
         index %= 1.0;
         let angle = index * 2.0 * PI;

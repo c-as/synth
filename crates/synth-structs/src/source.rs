@@ -1,6 +1,6 @@
 use rodio::Source;
 
-use crate::Input;
+use crate::{Context, Input};
 
 pub struct SynthSourcer {
     rate: u32,
@@ -39,6 +39,6 @@ impl Iterator for SynthSourcer {
 
     fn next(&mut self) -> Option<Self::Item> {
         //For development purposes None values are not allowed
-        Some(self.input.get_sample(self.rate).unwrap())
+        Some(self.input.get_sample(Context { rate: self.rate }).unwrap())
     }
 }

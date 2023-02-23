@@ -2,7 +2,7 @@ use std::{f32::consts::PI, ops};
 
 use crate::{
     ops::{Add, Amp},
-    Input, Synth,
+    Context, Input, Synth,
 };
 
 #[derive(Clone)]
@@ -21,12 +21,12 @@ impl Sine {
 }
 
 impl Synth for Sine {
-    fn sample(&mut self, rate: u32) -> Option<f32> {
+    fn sample(&mut self, context: Context) -> Option<f32> {
         let angle = self.index * 2.0 * PI;
         let ampl = angle.sin();
 
-        let len = 1.0 / rate as f32;
-        self.index += len * self.freq.get_sample(rate)?;
+        let len = 1.0 / context.rate as f32;
+        self.index += len * self.freq.get_sample(context)?;
         self.index %= 1.0;
 
         Some(ampl)

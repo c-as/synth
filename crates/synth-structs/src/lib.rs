@@ -8,4 +8,5 @@ pub mod util;
 
 pub use input::Input;
 pub use player::Player;
+pub use traits::Context;
 pub use traits::Synth;

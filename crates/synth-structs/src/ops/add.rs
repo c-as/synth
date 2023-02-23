@@ -1,6 +1,6 @@
 use std::ops;
 
-use crate::{ops::Amp, Input, Synth};
+use crate::{ops::Amp, Context, Input, Synth};
 
 #[derive(Clone)]
 pub struct Add {
@@ -72,8 +72,8 @@ impl Add {
 }
 
 impl Synth for Add {
-    fn sample(&mut self, rate: u32) -> Option<f32> {
-        Some(self.a.get_sample(rate)? + self.b.get_sample(rate)?)
+    fn sample(&mut self, context: Context) -> Option<f32> {
+        Some(self.a.get_sample(context)? + self.b.get_sample(context)?)
     }
 }
 

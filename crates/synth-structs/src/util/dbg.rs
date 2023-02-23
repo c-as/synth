@@ -1,6 +1,6 @@
 use std::ops;
 
-use crate::{ops::Add, Input, Synth};
+use crate::{ops::Add, Context, Input, Synth};
 
 #[derive(Clone)]
 pub struct Dbg {
@@ -28,10 +28,10 @@ impl Dbg {
 }
 
 impl Synth for Dbg {
-    fn sample(&mut self, rate: u32) -> Option<f32> {
-        let sample = self.input.get_sample(rate);
+    fn sample(&mut self, context: Context) -> Option<f32> {
+        let sample = self.input.get_sample(context);
 
-        if self.index % self.interval.get_sample(rate)?.round() as u32 == 0 {
+        if self.index % self.interval.get_sample(context)?.round() as u32 == 0 {
             if let Some(sample) = sample {
                 dbg!(sample);
             } else {

@@ -2,7 +2,7 @@ use std::ops;
 
 use crate::{
     ops::{Add, Amp},
-    Input, Synth,
+    Context, Input, Synth,
 };
 
 #[derive(Clone)]
@@ -43,7 +43,7 @@ impl Default for Noise {
 }
 
 impl Synth for Noise {
-    fn sample(&mut self, rate: u32) -> Option<f32> {
+    fn sample(&mut self, context: Context) -> Option<f32> {
         match &mut self.0 {
             Type::Simple => Some(Self::get_random()),
             Type::Freq {
@@ -51,8 +51,8 @@ impl Synth for Noise {
                 index,
                 last_sample,
             } => {
-                let len = 1.0 / rate as f32;
-                *index += len * freq.get_sample(rate)?;
+                let len = 1.0 / context.rate as f32;
+                *index += len * freq.get_sample(context)?;
                 if *index >= 1.0 {
                     *index %= 1.0;
                     *last_sample = Some(Self::get_random());
