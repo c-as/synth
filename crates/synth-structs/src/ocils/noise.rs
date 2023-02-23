@@ -23,7 +23,7 @@ impl Noise {
         Default::default()
     }
 
-    pub fn new_freq(freq: impl Into<Input>) -> Self {
+    pub fn with_freq(freq: impl Into<Input>) -> Self {
         Self(Type::Freq {
             freq: freq.into(),
             index: 0.0,

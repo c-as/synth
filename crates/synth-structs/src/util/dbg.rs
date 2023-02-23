@@ -18,7 +18,7 @@ impl Dbg {
         }
     }
 
-    pub fn new_interval(interval: impl Into<Input>, input: impl Into<Input>) -> Self {
+    pub fn with_interval(interval: impl Into<Input>, input: impl Into<Input>) -> Self {
         Self {
             input: input.into(),
             interval: interval.into(),

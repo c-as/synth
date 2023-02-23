@@ -24,15 +24,15 @@ impl Table {
         }
     }
 
-    pub fn new_sine(size: u32, freq: impl Into<Input>) -> Self {
+    pub fn with_sine(size: u32, freq: impl Into<Input>) -> Self {
         Self::from_synth(size, Sine::new(1), freq)
     }
 
-    pub fn new_square(size: u32, freq: impl Into<Input>) -> Self {
+    pub fn with_square(size: u32, freq: impl Into<Input>) -> Self {
         Self::from_synth(size, Square::new(1), freq)
     }
 
-    pub fn new_saw(size: u32, freq: impl Into<Input>) -> Self {
+    pub fn with_saw(size: u32, freq: impl Into<Input>) -> Self {
         Self::from_synth(size, Saw::new(1), freq)
     }
 

@@ -6,7 +6,7 @@ fn main() {
 
     Player::play(Add::from_vec(
         (0..10)
-            .map(|_| Input::from(Table::new_sine(1000, rng.gen_range(1.0..250.0)) * 0.05))
+            .map(|_| Input::from(Table::with_sine(1000, rng.gen_range(1.0..250.0)) * 0.05))
             .collect(),
     ));
 }
