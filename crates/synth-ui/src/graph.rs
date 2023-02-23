@@ -59,7 +59,7 @@ impl Graph {
                 [
                     self.millis / self.samples as f64 * i as f64,
                     input
-                        .get_sample(Context {
+                        .sample(Context {
                             rate: self.get_rate(),
                         })
                         .unwrap_or(0.0) as f64,

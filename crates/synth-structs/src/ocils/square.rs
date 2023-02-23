@@ -25,7 +25,7 @@ impl Synth for Square {
         let ampl = self.index.round() * 2.0 - 1.0;
 
         let len = 1.0 / context.rate as f32;
-        self.index += len * self.freq.get_sample(context)?;
+        self.index += len * self.freq.sample(context)?;
         self.index %= 1.0;
 
         Some(ampl)

@@ -13,7 +13,7 @@ impl Input {
         input.into()
     }
 
-    pub fn get_sample(&mut self, context: Context) -> Option<f32> {
+    pub fn sample(&mut self, context: Context) -> Option<f32> {
         self.0.sample(context)
     }
 }

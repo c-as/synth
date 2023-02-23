@@ -41,7 +41,7 @@ impl Table {
 
         Self::new(
             (0..size)
-                .map(|_| synth.get_sample(Context { rate: size }).unwrap_or_default())
+                .map(|_| synth.sample(Context { rate: size }).unwrap_or_default())
                 .collect(),
             freq,
         )
@@ -61,7 +61,7 @@ impl Synth for Table {
             .unwrap();
 
         let len = 1.0 / context.rate as f32;
-        self.index += len * self.table.len() as f32 * self.freq.get_sample(context)?;
+        self.index += len * self.table.len() as f32 * self.freq.sample(context)?;
         self.index %= self.table.len() as f32;
 
         Some(first.lerp(second, &(self.index % 1.0)))

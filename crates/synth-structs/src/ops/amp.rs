@@ -19,7 +19,7 @@ impl Amp {
 
 impl Synth for Amp {
     fn sample(&mut self, context: Context) -> Option<f32> {
-        Some(self.a.get_sample(context)? * self.b.get_sample(context)?)
+        Some(self.a.sample(context)? * self.b.sample(context)?)
     }
 }
 

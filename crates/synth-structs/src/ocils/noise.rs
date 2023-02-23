@@ -52,7 +52,7 @@ impl Synth for Noise {
                 last_sample,
             } => {
                 let len = 1.0 / context.rate as f32;
-                *index += len * freq.get_sample(context)?;
+                *index += len * freq.sample(context)?;
                 if *index >= 1.0 {
                     *index %= 1.0;
                     *last_sample = Some(Self::get_random());

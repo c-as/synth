@@ -29,9 +29,9 @@ impl Dbg {
 
 impl Synth for Dbg {
     fn sample(&mut self, context: Context) -> Option<f32> {
-        let sample = self.input.get_sample(context);
+        let sample = self.input.sample(context);
 
-        if self.index % self.interval.get_sample(context)?.round() as u32 == 0 {
+        if self.index % self.interval.sample(context)?.round() as u32 == 0 {
             if let Some(sample) = sample {
                 dbg!(sample);
             } else {
