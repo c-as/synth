@@ -49,7 +49,7 @@ impl Table {
 }
 
 impl Synth for Table {
-    fn get_sample(&mut self, rate: u32) -> Option<f32> {
+    fn sample(&mut self, rate: u32) -> Option<f32> {
         let first = self.table.get(self.index.floor() as usize).unwrap();
         let second = self
             .table

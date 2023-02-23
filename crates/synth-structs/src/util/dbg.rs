@@ -28,7 +28,7 @@ impl Dbg {
 }
 
 impl Synth for Dbg {
-    fn get_sample(&mut self, rate: u32) -> Option<f32> {
+    fn sample(&mut self, rate: u32) -> Option<f32> {
         let sample = self.input.get_sample(rate);
 
         if self.index % self.interval.get_sample(rate)?.round() as u32 == 0 {

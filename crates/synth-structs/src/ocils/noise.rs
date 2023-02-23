@@ -43,7 +43,7 @@ impl Default for Noise {
 }
 
 impl Synth for Noise {
-    fn get_sample(&mut self, rate: u32) -> Option<f32> {
+    fn sample(&mut self, rate: u32) -> Option<f32> {
         match &mut self.0 {
             Type::Simple => Some(Self::get_random()),
             Type::Freq {

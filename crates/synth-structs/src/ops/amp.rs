@@ -18,7 +18,7 @@ impl Amp {
 }
 
 impl Synth for Amp {
-    fn get_sample(&mut self, rate: u32) -> Option<f32> {
+    fn sample(&mut self, rate: u32) -> Option<f32> {
         Some(self.a.get_sample(rate)? * self.b.get_sample(rate)?)
     }
 }

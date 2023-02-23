@@ -15,7 +15,7 @@ impl<F> Closure<F> {
 }
 
 impl<F: FnMut(u32) -> Option<f32> + Clone> Synth for Closure<F> {
-    fn get_sample(&mut self, rate: u32) -> Option<f32> {
+    fn sample(&mut self, rate: u32) -> Option<f32> {
         self.0(rate)
     }
 }

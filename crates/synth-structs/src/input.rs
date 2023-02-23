@@ -14,7 +14,7 @@ impl Input {
     }
 
     pub fn get_sample(&mut self, rate: u32) -> Option<f32> {
-        self.0.get_sample(rate)
+        self.0.sample(rate)
     }
 }
 

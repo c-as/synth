@@ -21,7 +21,7 @@ impl Square {
 }
 
 impl Synth for Square {
-    fn get_sample(&mut self, rate: u32) -> Option<f32> {
+    fn sample(&mut self, rate: u32) -> Option<f32> {
         let ampl = self.index.round() * 2.0 - 1.0;
 
         let len = 1.0 / rate as f32;
